@@ -43,7 +43,7 @@
                 <div class="form-group">
                  <label class="col-md-4 control-label" for="chkFields">Fields</label>
                     <div class="col-md-8 roundedCorner scrollV">
-                      <div class="checkbox row" ng-repeat="fld in fields | filter:searchObj" >
+                      <div class="checkbox row" ng-repeat="fld in fields | filter:searchText" >
                         <label for="{{fld.apiName}}" class="labelFull"> 
                             <input type="checkbox" name="chkFields" id="{{fld.apiName}}" ng-model="fld.isSelected" ng-change="updateSOQL()" /> 
                             <span ng-if="isAPIName == false"> {{fld.fieldLabel}} </span>

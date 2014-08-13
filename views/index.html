@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Salesforce Query Builder </title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="icon"  type="image/icon"  href="Online Salesforce Editor (OSE).ico" />
+  </head>
+  <body class="container" style="padding-top:50px;">
+      <div ng-app="app1" >
+            <div class="jumbotron" ng-controller="ItemCtrl">
+              <h1> Salesforce Query Builder </h1>
+              <p>
+                  To start, please select your Salesforce Instance 
+              </p>
+              <p>
+                  <a ng-click="prod()" id="prodBtn" role="button" style="margin-right:40px" class="btn btn-primary btn-lg">Production</a>
+                  <a  ng-click="sand()" id="sandBtn" role="button" class="btn btn-primary btn-lg">Sandbox</a></p>
+            </div>
+        </div>
+      
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-cookies.js"></script>
+      <script type="text/javascript" src="js/OAuth.js"></script>  
+      
+      <script>
+        
+        var myApp = angular.module('app1',['ngCookies']); 
+  
+         myApp.controller('ItemCtrl', ['$scope','$cookies', function($scope, $cookies) {
+             
+                $scope.prod = function(){
+                    $scope.login("https://login.salesforce.com/");
+                }
+                
+                $scope.sand = function(){
+                     $scope.login("https://test.salesforce.com/");
+                }
+                
+                $scope.login = function(loginUrl) {
+                     
+                    
+                    console.debug($cookies.SQBAccToken);
+                    console.debug($cookies.SQBAPIVer);
+                    console.debug($cookies.SQBInstURL);
+                    console.debug($cookies.SQBidURL);
+                    
+                    var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
+                        '&client_id=' + encodeURIComponent(clientId) +
+                        '&redirect_uri=' + encodeURIComponent(redirectURI);
+                    
+                    console.debug(url);
+                    popupCenter(url, 'login', 700, 600);
+                }
+                
+                $scope.setCokkies = function(response){
+                    console.debug('Angular Called from Legacy Code');
+                    
+                    $cookies.SQBAccToken = response.access_token;
+                    $cookies.SQBAPIVer = apiVersion;
+                    $cookies.SQBInstURL = response.instance_url;
+                    $cookies.SQBidURL = response.id; 
+                    
+                    console.debug($cookies.SQBAccToken);
+                    console.debug($cookies.SQBAPIVer);
+                    console.debug($cookies.SQBInstURL);
+                    console.debug($cookies.SQBidURL);
+                }
+             
+                
+                    
+         }]);
+          
+      </script>
+  </body>
+</html>

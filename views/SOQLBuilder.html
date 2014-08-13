@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Salesforce Query Builder </title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+     <link rel="icon"  type="image/icon"  href="Online Salesforce Editor (OSE).ico" />
+  </head>
+  <body >
+   
+<div ng-app="app1" >  
+    <div ng-controller="ItemCtrl" style="width:98%;">
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header"> 
+                    <a class="navbar-brand" href="#">Salesforce Query Builder</a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://shivasoft.in/blog"> created By - Jitendra Zaa </a></li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" id="btn-login">API Count : {{apiCount}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            
+        <div class="col-md-6 form-horizontal">   
+                <!-- Select Basic -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="optObjects">Objects</label>
+                  <div class="col-md-8">
+                    <select ng-change="getAllFields()" id="optObjects" name="optObjects" class="form-control" ng-model="selectedObject">
+                      <option  ng-repeat="obj in objects | filter:searchText"  value="{{obj.apiName}}">{{obj.fieldLabel}}</option> 
+                    </select>
+                  </div>
+                </div> 
+                
+                <!-- Select Multiple -->
+                <div class="form-group">
+                 <label class="col-md-4 control-label" for="chkFields">Fields</label>
+                    <div class="col-md-8 roundedCorner scrollV">
+                      <div class="checkbox row" ng-repeat="fld in fields | filter:searchText" >
+                        <label for="{{fld.apiName}}" class="labelFull"> 
+                            <input type="checkbox" name="chkFields" id="{{fld.apiName}}" ng-model="fld.isSelected" ng-change="updateSOQL()" /> 
+                            <span ng-if="isAPIName == false"> {{fld.fieldLabel}} </span>
+                            <span ng-if="isAPIName == true"> {{fld.apiName}} </span>  
+                         </label>
+                       </div> 
+                    </div> 
+                </div>
+                    
+                     <!-- Search input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="txtSearchField"> </label>
+                  <div class="col-md-1"> <input type="checkbox" name="checkAll" id="checkAll" value="{{isAll}}" ng-model="isAll" ng-change="checkUnCheckAll()"/> </div>
+                  <div class="col-md-4">
+                    <input ng-model="searchText" id="txtSearchField" name="txtSearchField" type="search" placeholder="Search Fields" class="form-control input-md" /> 
+                  </div>
+                  <div class="col-md-3">
+                    <label class="checkbox-inline" for="ShowAPI-0">
+                      <input type="checkbox" name="ShowAPI" id="ShowAPI-0" value="API" ng-model="isAPIName" />
+                      Show API Name 
+                    </label>
+                  </div>
+                </div> 
+        </div> 
+        
+            <div class="col-md-6">  
+                <div class="form-horizontal">   
+                    <!-- Textarea -->
+                    <div class="form-group">
+                      <label class="col-md-1 control-label" for="txtSOQL">SOQL</label>
+                      <div class="col-md-11">                     
+                        <textarea ng-model="SOQL" class="form-control" style="height:200px;" id="txtSOQL" name="txtSOQL">
+                          
+                          </textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-1 control-label" for="txtSOQL"> </label>
+                      <div class="col-md-11">                     
+                         <button ng-click="run()" id="singlebutton" name="singlebutton" class="btn btn-danger">Run Query </button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group col-md-12" ng-show='columnLabel.length > 0'> 
+          <div class="col-md-10"></div>
+            
+             
+            
+            
+            <div class="col-md-1" style="font-size:0.9em">Page {{currentPage+1}} of {{pagedItems.length}} </div>
+          <div class="col-md-1"> 
+            <button ng-disabled="currentPage <= 0" ng-click="decr()" id="btnPrev" name="btnPrev" class="btn btn-default">&lt;</button>
+            <button ng-disabled="currentPage+1 >= pagedItems.length" ng-click="incr()" id="btnNext" name="btnNext" class="btn btn-default">&gt;</button>
+          </div>
+        </div> 
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <th ng-repeat="col in columnLabel"> 
+                <a href="" ng-click="sortColumn(col)">{{col}} </a>
+            </th>
+            <tr ng-repeat="row in pagedItems[currentPage] | orderBy:orderByColumn:reverse">
+                <td ng-repeat="i in columnLabel">
+                    {{row[i]}}
+                </td>
+            </tr>
+        </table>  
+    </div>
+
+</div>
+<style>
+    .roundedCorner {
+            -webkit-border-radius: 5px !important;
+            -moz-border-radius: 5px !important;
+            border-radius: 5px !important;
+            -webkit-border-top: 5px !important;
+            -moz-border-top: 5px !important;
+            border-top: 5px !important;
+            -webkit-border-bottom: 5px !important;
+            -moz-border-bottom: 5px !important;
+            border-bottom: 5px !important;
+            padding-left : 30px;
+            border:1px solid #CCCCCC !important; 
+    }
+    .labelFull { 
+            width: 100%;
+            display: inline-block !important;
+            }
+            
+    .scrollV {
+        overflow-y: auto !important;
+        height : 150px;
+    }
+</style>
+      
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-cookies.js"></script>
+<script type="text/javascript" src="js/OAuth.js"></script>  
+      
+<script> 
+    
+var myApp = angular.module('app1',['ngCookies']);   
+ myApp.controller('ItemCtrl', ['$scope','$templateCache','$http',  '$filter', '$cookies', function($scope,$templateCache,$http,$filter, $cookies) {
+     
+      $scope.objects =  [] ;
+      $scope.fields =  [] ;
+      $scope.isAPIName = false;
+      $scope.searchText = '';
+      $scope.selectedObject = '';
+      $scope.SOQL = 'SELECT Name, Title, Phone FROM contact ';
+      $scope.isAll = false;
+      $scope.output = [];
+      $scope.columnLabel = [];
+      $scope.msg = '';
+      $scope.pageSize = 10 ;
+      $scope.currentPage = 0;  
+      $scope.orderByColumn = '';
+      $scope.reverse = true;
+      $scope.apiCount = 0;
+     
+     $scope.sortColumn = function(txt){ 
+         $scope.orderByColumn = txt;
+         $scope.reverse = !$scope.reverse;
+     }
+     $scope.incr = function(){
+         if($scope.currentPage < $scope.pagedItems.length)
+         {
+             $scope.currentPage = $scope.currentPage+1;
+         } 
+     }
+     $scope.decr = function(){
+         if($scope.currentPage > 0)
+         {
+             $scope.currentPage = $scope.currentPage-1;
+         } 
+     }
+     
+     $scope.checkUnCheckAll = function(){
+         
+         angular.forEach($scope.fields, function (item, index) { 
+             if($scope.isAll)
+                item.isSelected = true;
+            else
+                item.isSelected = false;
+         });
+         
+         $scope.updateSOQL();
+     } 
+     
+   $scope.groupToPages = function () {
+        $scope.pagedItems = []; 
+        for (var i = 0; i < $scope.filteredItems.length; i++) {
+            if (i % $scope.pageSize === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.pageSize)] = [ $scope.filteredItems[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.pageSize)].push($scope.filteredItems[i]);
+            }
+        }
+    };
+     
+     $scope.updateSOQL = function(){ 
+         $scope.SOQL = '';
+         
+         angular.forEach($scope.fields, function (item, index) {
+             
+             if(item.isSelected)
+             {
+                 $scope.SOQL =  $scope.SOQL + ' '+ item.apiName + ', ' ;
+                 //$scope.SOQL =  $scope.SOQL + '\t'+ item.apiName + ',\n' ;
+             }
+         });
+         
+         if($scope.SOQL != '')
+         {
+             $scope.SOQL = $scope.SOQL.replace(/,\s*$/, "");
+             $scope.SOQL = ' SELECT ' + $scope.SOQL + ' FROM '+$scope.selectedObject ;
+             //$scope.SOQL = ' SELECT \n' + $scope.SOQL + ' \n FROM \n\t'+$scope.selectedObject ;
+         }
+     }
+     
+     $scope.getAllFields = function(){
+         $scope.fields = [];
+          $scope.apiCount = $scope.apiCount + 1; 
+         $scope.url = $cookies.SQBInstURL + '/services/data/'+ $cookies.SQBAPIVer + '/sobjects/'+$scope.selectedObject+'/describe' ; 
+         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$cookies.SQBAccToken , 
+                                                          'SFDCActualURL' : $scope.url  
+                                                         } }).
+                success(function(data, status) { 
+                     angular.forEach(data.fields , function (item, index) { 
+                         $scope.fields.push($scope.createJSONData(item.label,item.name));
+                     });
+                    
+                }).
+                error(function(data, status) {
+                  $scope.data = data || "Request failed "; 
+              });
+     }
+    
+     $scope.getAllObjects = function(){
+         $scope.apiCount = $scope.apiCount + 1; 
+         $scope.url = $cookies.SQBInstURL + '/services/data/'+ $cookies.SQBAPIVer + '/sobjects' ; 
+         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$cookies.SQBAccToken , 
+                                                          'SFDCActualURL' : $scope.url  
+                                                         } }).
+                success(function(data, status) { 
+                     angular.forEach(data.sobjects , function (item, index) { 
+                         $scope.objects.push($scope.createJSONData(item.label,item.name));
+                     });
+                    
+                }).
+                error(function(data, status) {
+                  $scope.data = data || "Request failed "; 
+              });
+     }
+     
+     $scope.run = function(){
+         $scope.apiCount = $scope.apiCount + 1; 
+         $scope.url = $cookies.SQBInstURL + '/services/data/'+ $cookies.SQBAPIVer + '/query?q= '+ $scope.SOQL ; 
+         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$cookies.SQBAccToken , 
+                                                          'SFDCActualURL' : $scope.url  
+                                                         } }).
+                success(function(data, status) { 
+                    $scope.output = data.records ; 
+                    $scope.filteredItems = $scope.output ;
+                    $scope.groupToPages();
+                    
+                    isFirst = true; 
+                    angular.forEach(data.records[0], function (item, index) { 
+                        if(!isFirst)
+                        {
+                            $scope.columnLabel.push(index);
+                        }
+                        isFirst = false;
+                          //$scope.columnLabel.push(item[0]);
+                     });
+                    
+                }).
+                error(function(data, status) {
+                  $scope.data = data || "Request failed "; 
+              });
+         
+     }
+ 
+  
+ 
+   $scope.createJSONData = function(fLabel,fAPI) {
+        return {"fieldLabel":fLabel,"apiName":fAPI, "isSelected":false } ;
+    } 
+   $scope.getAllObjects();  
+   
+ }]);
+  
+</script> 
+  </body>
+</html>

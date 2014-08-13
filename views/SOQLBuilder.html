@@ -114,7 +114,24 @@
                     {{row[i]}}
                 </td>
             </tr>
-        </table>  
+        </table> 
+        
+        <div id="errorModelContainer" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content" >
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">
+                      <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                  </button>
+                  <h4 class="modal-title" id="errorModelTitle">{{errorHead}}</h4>
+                </div>
+                <div class="modal-body" >
+                   <div class="alert alert-danger" role="alert" id="errorModelText"> {{errorMsg}} </div>
+                </div>
+            </div>  
+          </div>
+        </div>
+         
     </div>
 
 </div>
@@ -142,7 +159,9 @@
         height : 150px;
     }
 </style>
-      
+     
+<script type="text/javascript" src="lib/jquery.js"></script>  
+<script type="text/javascript" src="lib/bootstrap.min.js"></script>         
 <script type="text/javascript" src="js/angular.min.js"></script> 
 <script type="text/javascript" src="js/OAuth.js"></script>  
       
@@ -321,6 +340,9 @@ myApp.factory('storageService', function ($rootScope) {
                 }).
                 error(function(data, status) {
                   $scope.data = data || "Request failed "; 
+                  $scope.errorHead = data[0].errorCode ;
+                  $scope.errorMsg = data[0].message ;
+                  angular.element("#errorModelContainer").modal() ;
               });
          
      }

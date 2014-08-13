@@ -109,7 +109,7 @@
             <th ng-repeat="col in columnLabel"> 
                 <a href="" ng-click="sortColumn(col)">{{col}} </a>
             </th>
-            <tr ng-repeat="row in pagedItems[currentPage] | track by $index | orderBy:orderByColumn:reverse ">
+            <tr ng-repeat="row in pagedItems[currentPage] | orderBy:orderByColumn:reverse track by $index">
                 <td ng-repeat="i in columnLabel">
                     {{row[i]}}
                 </td>

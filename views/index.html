@@ -26,7 +26,7 @@
         
         var myApp = angular.module('app1',['ngCookies']); 
   
-         myApp.controller('ItemCtrl', ['$scope','$cookies', function($scope, $cookies) {
+         myApp.controller('ItemCtrl', ['$scope','$cookieStore', function($scope, $cookieStore) {
              
                 $scope.prod = function(){
                     $scope.login("https://login.salesforce.com/");
@@ -55,15 +55,15 @@
                 $scope.setCokkies = function(response){
                     console.debug('Angular Called from Legacy Code');
                     
-                    $cookies.SQBAccToken = response.access_token;
-                    $cookies.SQBAPIVer = apiVersion;
-                    $cookies.SQBInstURL = response.instance_url;
-                    $cookies.SQBidURL = response.id; 
+                    $cookieStore.put('SQBAccToken', response.access_token);
+                    $cookieStore.put('SQBAPIVer', apiVersion);
+                    $cookieStore.put('SQBInstURL', response.instance_url);
+                    $cookieStore.put('SQBidURL', response.id); 
                     
-                    console.debug($cookies.SQBAccToken);
-                    console.debug($cookies.SQBAPIVer);
-                    console.debug($cookies.SQBInstURL);
-                    console.debug($cookies.SQBidURL);
+                    console.debug($cookieStore.get('SQBAccToken'));
+                    console.debug($cookieStore.get('SQBAPIVer'));
+                    console.debug($cookieStore.get('SQBInstURL'));
+                    console.debug($cookieStore.get('SQBidURL'));
                 }
              
                 

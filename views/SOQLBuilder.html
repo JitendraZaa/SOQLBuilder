@@ -291,7 +291,9 @@ myApp.factory('storageService', function ($rootScope) {
      
      $scope.run = function(){
          $scope.apiCount = $scope.apiCount + 1; 
-         $scope.url = $scope.SQBInstURL + '/services/data/'+ $scope.SQBAPIVer + '/query?q= '+ $scope.SOQL ; 
+         soqlWoNewline = $scope.SOQL.replace(/[\r\n]/g, " ");
+         
+         $scope.url = $scope.SQBInstURL + '/services/data/'+ $scope.SQBAPIVer + '/query?q= '+ soqlWoNewline ; 
          $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$scope.SQBAccToken , 
                                                           'SFDCActualURL' : $scope.url  
                                                          } }).

@@ -38,11 +38,7 @@
                 
                 $scope.login = function(loginUrl) {
                      
-                    
-                    console.debug($cookies.SQBAccToken);
-                    console.debug($cookies.SQBAPIVer);
-                    console.debug($cookies.SQBInstURL);
-                    console.debug($cookies.SQBidURL);
+                     
                     
                     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
                         '&client_id=' + encodeURIComponent(clientId) +

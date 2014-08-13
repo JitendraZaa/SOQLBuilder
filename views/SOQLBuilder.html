@@ -294,6 +294,12 @@ var myApp = angular.module('app1',['ngCookies']);
    $scope.createJSONData = function(fLabel,fAPI) {
         return {"fieldLabel":fLabel,"apiName":fAPI, "isSelected":false } ;
     } 
+   
+   console.debug($cookies.SQBAccToken);
+   console.debug($cookies.SQBAPIVer);
+   console.debug($cookies.SQBInstURL);
+   console.debug($cookies.SQBidURL);
+   
    $scope.getAllObjects();  
    
  }]);

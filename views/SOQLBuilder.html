@@ -290,6 +290,12 @@ myApp.factory('storageService', function ($rootScope) {
      }
      
      $scope.run = function(){
+    	 
+    	 $scope.output = [] ; 
+         $scope.filteredItems = [] ;
+         $scope.pagedItems = [] ;
+         $scope.columnLabel = [];
+         
          $scope.apiCount = $scope.apiCount + 1; 
          soqlWoNewline = $scope.SOQL.replace(/[\r\n]/g, " ");
          

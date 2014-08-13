@@ -28,9 +28,7 @@ app.get('/' , function(req,res) {
 app.get('/index*' , function(req,res) {
     res.sendfile('views/index.html');
 } );  
-app.get('/landing*' , function(req,res) {
-    res.sendfile('views/landingPage.html');
-} ); 
+ 
  app.get('/oauthcallback*' , function(req,res) {
     res.sendfile('views/oauthcallback.html');
 } ); 

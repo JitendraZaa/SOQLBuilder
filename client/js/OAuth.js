@@ -27,7 +27,7 @@ function oauthCallback(response) {
         //$.cookie("SQBidURL",  response.id) ;
         
          //window.close();    
-        window.location = 'landing';
+        window.location = 'SOQLBuilder';
     } else {
         alert("AuthenticationError: No Token");
     }

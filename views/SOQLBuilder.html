@@ -43,7 +43,7 @@
                 <div class="form-group">
                  <label class="col-md-4 control-label" for="chkFields">Fields</label>
                     <div class="col-md-8 roundedCorner scrollV">
-                      <div class="checkbox row" ng-repeat="fld in fields | filter:searchText" >
+                      <div class="checkbox row" ng-repeat="fld in fields | filter:searchObj" >
                         <label for="{{fld.apiName}}" class="labelFull"> 
                             <input type="checkbox" name="chkFields" id="{{fld.apiName}}" ng-model="fld.isSelected" ng-change="updateSOQL()" /> 
                             <span ng-if="isAPIName == false"> {{fld.fieldLabel}} </span>
@@ -55,7 +55,9 @@
                     
                      <!-- Search input-->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtSearchField"> </label>
+                  <div class="col-md-4">
+                        <input ng-model="searchObj" id="txtSearchObj" name="txtSearchObj" type="search" placeholder="Search Objects" class="form-control input-md" /> 
+                      </div>
                   <div class="col-md-1"> <input type="checkbox" name="checkAll" id="checkAll" value="{{isAll}}" ng-model="isAll" ng-change="checkUnCheckAll()"/> </div>
                   <div class="col-md-4">
                     <input ng-model="searchText" id="txtSearchField" name="txtSearchField" type="search" placeholder="Search Fields" class="form-control input-md" /> 

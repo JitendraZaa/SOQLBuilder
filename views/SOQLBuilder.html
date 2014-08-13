@@ -34,7 +34,7 @@
                   <label class="col-md-4 control-label" for="optObjects">Objects</label>
                   <div class="col-md-8">
                     <select ng-change="getAllFields()" id="optObjects" name="optObjects" class="form-control" ng-model="selectedObject">
-                      <option  ng-repeat="obj in objects | filter:searchText"  value="{{obj.apiName}}">{{obj.fieldLabel}}</option> 
+                      <option  ng-repeat="obj in objects | filter:searchObj"  value="{{obj.apiName}}">{{obj.fieldLabel}}</option> 
                     </select>
                   </div>
                 </div> 

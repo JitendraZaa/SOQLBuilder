@@ -1,7 +1,7 @@
 var apiVersion = 'v30.0',
     clientId = '3MVG9iTxZANhwHQuSJa6AuCgpr_bw4mpBDSy1bqqy29SovPrXH_BEKw8G4MG1CoKpaxYZg8biQzJyx8_MLkHp', 
-    redirectURI = "http://soqlbuilder.herokuapp.com/oauthcallback.html",
-    proxyURL = 'http://soqlbuilder.herokuapp.com/proxy';
+    redirectURI = "https://soqlbuilder.herokuapp.com/oauthcallback.html",
+    proxyURL = '/proxy';
 
 function popupCenter(url, title, w, h) {
     // Handles dual monitor setups

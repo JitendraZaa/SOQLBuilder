@@ -3,8 +3,7 @@ var apiVersion = 'v30.0',
     redirectURI = "https://soqlbuilder.herokuapp.com/oauthcallback.html",
     proxyURL = '/proxy';
 
-function popupCenter(url, title, w, h) {
-    // Handles dual monitor setups
+function popupCenter(url, title, w, h) { 
     var parentLeft = window.screenLeft ? window.screenLeft : window.screenX;
     var parentTop = window.screenTop ? window.screenTop : window.screenY;
     var left = parentLeft + (window.innerWidth / 2) - (w / 2);
@@ -17,16 +16,7 @@ function oauthCallback(response) {
         
         //Get Angular Scope
         var myScope = angular.element(document.querySelector("#prodBtn")).scope();
-        myScope.setCokkies(response);
-        
-        //client.setSessionToken(response.access_token, apiVersion, response.instance_url);
-        //console.log(response);
-        //$.cookie("SQBAccToken",response.access_token ) ;
-        //$.cookie("SQBAPIVer", apiVersion) ;
-        //$.cookie("SQBInstURL",  response.instance_url) ; 
-        //$.cookie("SQBidURL",  response.id) ;
-        
-         //window.close();    
+        myScope.setCokkies(response);  
         window.location = 'SOQLBuilder';
     } else {
         alert("AuthenticationError: No Token");

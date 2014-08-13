@@ -3,7 +3,7 @@
   <head>
     <title> Salesforce Query Builder </title>
       <link href="css/bootstrap.min.css" rel="stylesheet">
-     <link rel="icon"  type="image/icon"  href="Online Salesforce Editor (OSE).ico" />
+     <link rel="icon"  type="image/icon"  href="SOQL.ico" />
   </head>
   <body >
    
@@ -168,7 +168,9 @@
       
 <script> 
     
-var myApp = angular.module('app1',[ ]);   
+var myApp = angular.module('app1',[ ]);  
+
+//As Cookies are inconsistent, Use LocalSTorage of HTML 5
 myApp.factory('storageService', function ($rootScope) {
         return {
             get: function (key) {

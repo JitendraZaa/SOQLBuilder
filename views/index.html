@@ -18,15 +18,29 @@
             </div>
         </div>
       
-    <script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="js/angular-cookies.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script> 
       <script type="text/javascript" src="js/OAuth.js"></script>  
       
-      <script>
+     <script>
         
-        var myApp = angular.module('app1',['ngCookies']); 
-  
-         myApp.controller('ItemCtrl', ['$scope','$cookieStore', function($scope, $cookieStore) {
+        var myApp = angular.module('app1',[ ]); 
+        myApp.factory('storageService', function ($rootScope) {
+            return {
+                get: function (key) {
+                   return localStorage.getItem(key);
+                },
+                set: function (key, data) {
+                   localStorage.setItem(key, data);
+                },
+                remove: function (key) {
+                    localStorage.removeItem(key);
+                },
+                clearAll : function () {
+                    localStorage.clear();
+                }
+            };
+        });
+         myApp.controller('ItemCtrl', ['$scope' ,'storageService', function($scope,  storageService) {
              
                 $scope.prod = function(){
                     $scope.login("https://login.salesforce.com/");
@@ -38,7 +52,12 @@
                 
                 $scope.login = function(loginUrl) {
                      
-                     
+                    
+                    
+                    console.debug(storageService.get('SQBAccToken'));
+                    console.debug(storageService.get('SQBAPIVer'));
+                    console.debug(storageService.get('SQBInstURL'));
+                    console.debug(storageService.get('SQBidURL'));
                     
                     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
                         '&client_id=' + encodeURIComponent(clientId) +
@@ -51,15 +70,16 @@
                 $scope.setCokkies = function(response){
                     console.debug('Angular Called from Legacy Code');
                     
-                    $cookieStore.put('SQBAccToken', response.access_token);
-                    $cookieStore.put('SQBAPIVer', apiVersion);
-                    $cookieStore.put('SQBInstURL', response.instance_url);
-                    $cookieStore.put('SQBidURL', response.id); 
+                    storageService.set('SQBAccToken',response.access_token);
+                    storageService.set('SQBAPIVer',apiVersion);
+                    storageService.set('SQBInstURL',response.instance_url);
+                    storageService.set('SQBidURL',response.id);
+                     
                     
-                    console.debug($cookieStore.get('SQBAccToken'));
-                    console.debug($cookieStore.get('SQBAPIVer'));
-                    console.debug($cookieStore.get('SQBInstURL'));
-                    console.debug($cookieStore.get('SQBidURL'));
+                    console.debug(storageService.get('SQBAccToken'));
+                    console.debug(storageService.get('SQBAPIVer'));
+                    console.debug(storageService.get('SQBInstURL'));
+                    console.debug(storageService.get('SQBidURL'));
                 }
              
                 

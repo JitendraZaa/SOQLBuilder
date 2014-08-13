@@ -141,14 +141,30 @@
     }
 </style>
       
-<script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/angular-cookies.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script> 
 <script type="text/javascript" src="js/OAuth.js"></script>  
       
 <script> 
     
-var myApp = angular.module('app1',['ngCookies']);   
- myApp.controller('ItemCtrl', ['$scope','$templateCache','$http',  '$filter', '$cookieStore', function($scope,$templateCache,$http,$filter, $cookieStore) {
+var myApp = angular.module('app1',[ ]);   
+myApp.factory('storageService', function ($rootScope) {
+        return {
+            get: function (key) {
+               return localStorage.getItem(key);
+            },
+            set: function (key, data) {
+               localStorage.setItem(key, data);
+            },
+            remove: function (key) {
+                localStorage.removeItem(key);
+            },
+            clearAll : function () {
+                localStorage.clear();
+            }
+        };
+    });
+
+ myApp.controller('ItemCtrl', ['$scope','$templateCache','$http',  '$filter', 'storageService', function($scope,$templateCache,$http,$filter, storageService) {
      
       $scope.objects =  [] ;
       $scope.fields =  [] ;
@@ -165,6 +181,14 @@ var myApp = angular.module('app1',['ngCookies']);
       $scope.orderByColumn = '';
       $scope.reverse = true;
       $scope.apiCount = 0;
+     
+     $scope.SQBAccToken = storageService.get('SQBAccToken') ;
+     $scope.SQBAPIVer = storageService.get('SQBAPIVer') ;
+     $scope.SQBInstURL = storageService.get('SQBInstURL') ;
+  
+     console.debug(storageService.get('SQBAccToken'));
+    console.debug(storageService.get('SQBAPIVer'));
+    console.debug(storageService.get('SQBInstURL')); 
      
      $scope.sortColumn = function(txt){ 
          $scope.orderByColumn = txt;
@@ -229,8 +253,8 @@ var myApp = angular.module('app1',['ngCookies']);
      $scope.getAllFields = function(){
          $scope.fields = [];
           $scope.apiCount = $scope.apiCount + 1; 
-         $scope.url = $cookieStore.get('SQBInstURL') + '/services/data/'+ $cookieStore.get('SQBAPIVer') + '/sobjects/'+$scope.selectedObject+'/describe' ; 
-         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$cookieStore.get('SQBAccToken') , 
+         $scope.url = $scope.SQBInstURL + '/services/data/'+ $scope.SQBAPIVer + '/sobjects/'+$scope.selectedObject+'/describe' ; 
+         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$scope.SQBAccToken , 
                                                           'SFDCActualURL' : $scope.url  
                                                          } }).
                 success(function(data, status) { 
@@ -246,8 +270,12 @@ var myApp = angular.module('app1',['ngCookies']);
     
      $scope.getAllObjects = function(){
          $scope.apiCount = $scope.apiCount + 1; 
-         $scope.url = $cookieStore.get('SQBInstURL') + '/services/data/'+ $cookieStore.get('SQBAPIVer') + '/sobjects' ; 
-         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$cookieStore.get('SQBAccToken') , 
+         $scope.url = $scope.SQBInstURL + '/services/data/'+ $scope.SQBAPIVer + '/sobjects' ; 
+         
+         console.log('1'+$scope.url);
+         console.log('2'+proxyURL);
+         
+         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$scope.SQBAccToken, 
                                                           'SFDCActualURL' : $scope.url  
                                                          } }).
                 success(function(data, status) { 
@@ -263,8 +291,8 @@ var myApp = angular.module('app1',['ngCookies']);
      
      $scope.run = function(){
          $scope.apiCount = $scope.apiCount + 1; 
-         $scope.url = $cookieStore.get('SQBInstURL') + '/services/data/'+ $cookieStore.get('SQBAPIVer') + '/query?q= '+ $scope.SOQL ; 
-         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$cookieStore.get('SQBAccToken') , 
+         $scope.url = $scope.SQBInstURL + '/services/data/'+ $scope.SQBAPIVer + '/query?q= '+ $scope.SOQL ; 
+         $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$scope.SQBAccToken , 
                                                           'SFDCActualURL' : $scope.url  
                                                          } }).
                 success(function(data, status) { 
@@ -294,12 +322,6 @@ var myApp = angular.module('app1',['ngCookies']);
    $scope.createJSONData = function(fLabel,fAPI) {
         return {"fieldLabel":fLabel,"apiName":fAPI, "isSelected":false } ;
     } 
-   
-   console.debug($cookieStore.get('SQBAccToken'));
-   console.debug($cookieStore.get('SQBAPIVer'));
-   console.debug($cookieStore.get('SQBInstURL'));
-   console.debug($cookieStore.get('SQBidURL'));
-   
    $scope.getAllObjects();  
    
  }]);

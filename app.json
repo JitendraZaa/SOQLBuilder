@@ -1,0 +1,7 @@
+{
+  "name": "Salesforce Query Builder",
+  "description": "Node.js and AngularJs based Query Builder for Salesforce.",
+  "repository": "https://github.com/JitendraZaa/SOQLBuilder.git",
+  "logo": "https://soqlbuilder.herokuapp.com/SOQL.ico",
+  "keywords": ["SOQL", "Salesforce", "Salesforce Query Builder", "AngularJs", "Node.js", "Shivasoft"]
+}

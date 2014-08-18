@@ -1,5 +1,10 @@
 ##Salesforce Query Builder using Node.Js, AngularJs, Salesforce REST API, OAuth2 and Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy) 
+
+Live Demo - https://soqlbuilder.herokuapp.com/
  
+
 
 It uses Google's Angularjs MVC Javascript library and REST API provided by Salesforce. For Authentication, it uses OAuth. Node.js is used as a primary language and hosted on Heroku.
 

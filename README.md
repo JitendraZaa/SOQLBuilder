@@ -18,3 +18,8 @@ This Node.js application is used for building SOQL with following features :
 - Automatic Query Builder at Right side of page
 - Shows API count used by application
 - Search returned records
+- Sorting on Table Headers
+- Pagination
+ 
+
+Blog Article - http://www.shivasoft.in/blog/salesforce/creating-salesforce-query-builder-in-node-js-and-angularjs-using-salesforce-rest-api-and-oauth2/

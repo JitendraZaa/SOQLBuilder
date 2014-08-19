@@ -23,3 +23,5 @@ This Node.js application is used for building SOQL with following features :
  
 
 Blog Article - http://www.shivasoft.in/blog/salesforce/creating-salesforce-query-builder-in-node-js-and-angularjs-using-salesforce-rest-api-and-oauth2/
+
+[![Youtube Vide](http://img.youtube.com/vi/Y_-MGYDWNuc/0.jpg)](http://www.youtube.com/watch?v=Y_-MGYDWNuc)

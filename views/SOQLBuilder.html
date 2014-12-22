@@ -35,23 +35,26 @@
 			<div class="col-md-4 form-horizontal">  
 				<!-- Select Basic -->
 				<div class="form-group">
-				  <label class="col-md-4 control-label" for="optObjects">Objects</label>
-				  <div class="col-md-8">
-					<select multiple="multiple" ng-change="getAllFields()" id="optObjects" name="optObjects" class="form-control" ng-model="selectedObject">
+				  <label class="col-md-2 control-label" for="optObjects">Objects</label>
+				  <div class="col-md-10">
+					<select multiple="multiple" ng-change="getAllFields()" id="optObjects" name="optObjects" class="form-control scrollV" ng-model="selectedObject">
 					  <option  ng-repeat="obj in objects | filter:searchObj"  value="{{obj.apiName}}">{{obj.fieldLabel}}</option> 
 					</select>
 				  </div>
 				</div> 
 				<div class="form-group">
-					<input ng-model="searchObj" id="txtSearchObj" name="txtSearchObj" type="search" placeholder="Search Objects" class="form-control input-md" /> 
+					<div class="col-md-2"> </div>
+					<div class="col-md-10">
+						<input ng-model="searchObj" id="txtSearchObj" name="txtSearchObj" type="search" placeholder="Search Objects" class="form-control input-md" /> 
+					</div>
 				</div>
 			</div>
 		
 			<div class="col-md-4 form-horizontal">    
 					<!-- Select Multiple -->
 					<div class="form-group">
-					 <label class="col-md-4 control-label" for="chkFields">Fields</label>
-						<div class="col-md-8 roundedCorner scrollV">
+					 <label class="col-md-2 control-label" for="chkFields">Fields</label>
+						<div class="col-md-10 roundedCorner scrollV">
 						  <div class="checkbox row" ng-repeat="fld in fields | filter:searchText" >
 							<label for="{{fld.apiName}}" class="labelFull"> 
 								<input type="checkbox" name="chkFields" id="{{fld.apiName}}" ng-model="fld.isSelected" ng-change="updateSOQL()" /> 
@@ -64,7 +67,9 @@
 						
 						 <!-- Search input-->
 					<div class="form-group">  
-						<div class="col-md-4"> 
+					<div class="col-md-2"> 
+					</div>
+						<div class="col-md-2"> 
 							<label class="checkbox-inline" for="checkAll">
 								<input type="checkbox" name="checkAll" id="checkAll" value="{{isAll}}" ng-model="isAll" ng-change="checkUnCheckAll()"/> 
 								All
@@ -78,7 +83,7 @@
 						<div class="col-md-4">
 							<label class="checkbox-inline" for="ShowAPI-0">
 								<input type="checkbox" name="ShowAPI" id="ShowAPI-0" value="API" ng-model="isAPIName" />
-								Show API Name 
+								API Name 
 							</label>
 						</div>
 					</div> 
@@ -90,7 +95,7 @@
 					<div class="form-group">
 					  <label class="col-md-1 control-label" for="txtSOQL">SOQL</label>
 					  <div class="col-md-11">                     
-						<textarea ng-model="SOQL" class="form-control" style="height:200px;" id="txtSOQL" name="txtSOQL">
+						<textarea ng-model="SOQL" class="form-control" style="height:150px;" id="txtSOQL" name="txtSOQL">
 						  
 						  </textarea>
 					  </div>
@@ -150,6 +155,9 @@
 
 </div>
 <style>
+	body{
+		font-size:12px;
+	}
     .roundedCorner {
             -webkit-border-radius: 5px !important;
             -moz-border-radius: 5px !important;

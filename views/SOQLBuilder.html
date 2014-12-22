@@ -280,7 +280,7 @@ myApp.factory('storageService', function ($rootScope) {
         $scope.savedQuery = new Array();
     }
      
-     $scope.clearAllSavedQuery(){
+     $scope.clearAllSavedQuery = function (){
         if(prompt('Are you sure you want to delete all saved quries ?'))
         {
             storageService.remove(storageService.get('SQUserLoggedIn')+'savedQuery');

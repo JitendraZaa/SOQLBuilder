@@ -446,10 +446,10 @@ myApp.factory('storageService', function ($rootScope) {
        {
            var storedQuery = new Object();
            storedQuery.name = queryName ;
-           stored.query = $scope.SOQL ; 
-           stored.uniqueId = new Date().getTime();
+           storedQuery.query = $scope.SOQL ; 
+           storedQuery.uniqueId = new Date().getTime();
              
-           savedQuery.push(storedQuery);
+           $scope.savedQuery.push(storedQuery);
            
            storageService.set('savedQuery',savedQuery);
        }

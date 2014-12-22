@@ -277,10 +277,7 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.loggedInUserId = storageService.get('SQUserLoggedIn') ;
      
     $scope.savedQueryList = JSON.parse(storageService.get($scope.loggedInUserId+'savedQuery'));
-    
-    console.log($scope.loggedInUserId);
-    console.log(storageService.get($scope.loggedInUserId+'savedQuery')); 
-    console.log($scope.savedQueryList);
+     
      
     if(!$scope.savedQueryList)
     {
@@ -337,7 +334,7 @@ myApp.factory('storageService', function ($rootScope) {
    }
    
    $scope.removeQuery = function(unId){
-       console.log(unId);
+        
        var indexToDel = -1;
        
        for(var i=0; i < $scope.savedQueryList.length; i++){

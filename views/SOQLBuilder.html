@@ -174,10 +174,10 @@
                             <td> {{row.name}} </td>
                             <td> 
                                 
-                                <a href="#" ng-click="useQuery(row.uniqueId)" class="btn btn-default">
+                                <a href="#" ng-click="useQuery(row.uniqueId)" class="btn btn-default btn-xs">
                                     <span class="glyphicon glyphicon-hand-left"></span></a>
                                 
-                                <a href="#" ng-click="removeQuery(row.uniqueId)" class="btn btn-default"> 
+                                <a href="#" ng-click="removeQuery(row.uniqueId)" class="btn btn-default btn-xs"> 
                                     <span class="glyphicon glyphicon-trash"></span></a>
                                  
                             </td> 
@@ -458,7 +458,7 @@ myApp.factory('storageService', function ($rootScope) {
              
            $scope.savedQuery.push(storedQuery);
            
-           storageService.set('savedQuery',savedQuery);
+           storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',savedQuery);
        }
    }
    

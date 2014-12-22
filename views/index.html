@@ -67,8 +67,7 @@
                     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
                         '&client_id=' + encodeURIComponent(clientId) +
                         '&redirect_uri=' + encodeURIComponent(redirectURI);
-                    
-                    console.debug(url);
+                     
                     popupCenter(url, 'login', 700, 600);
                 }
                 

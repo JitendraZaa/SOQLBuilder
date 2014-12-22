@@ -279,7 +279,7 @@ myApp.factory('storageService', function ($rootScope) {
      console.log($scope.loggedInUserId);
      
     $scope.savedQuery = storageService.get($scope.loggedInUserId+'savedQuery');
-     
+    console.log(storageService.get($scope.loggedInUserId+'savedQuery')); 
     if(!$scope.savedQuery)
     {
         $scope.savedQuery = new Array();
@@ -479,6 +479,7 @@ myApp.factory('storageService', function ($rootScope) {
            $scope.savedQuery.push(storedQuery);
            
            storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQuery);
+           console.log(storageService.get($scope.loggedInUserId+'savedQuery'));
        }
    }
    

@@ -31,71 +31,80 @@
         
          
         <div class="row">
-            
-        <div class="col-md-6 form-horizontal">   
-                <!-- Select Basic -->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="optObjects">Objects</label>
-                  <div class="col-md-8">
-                    <select ng-change="getAllFields()" id="optObjects" name="optObjects" class="form-control" ng-model="selectedObject">
-                      <option  ng-repeat="obj in objects | filter:searchObj"  value="{{obj.apiName}}">{{obj.fieldLabel}}</option> 
-                    </select>
-                  </div>
-                </div> 
-                
-                <!-- Select Multiple -->
-                <div class="form-group">
-                 <label class="col-md-4 control-label" for="chkFields">Fields</label>
-                    <div class="col-md-8 roundedCorner scrollV">
-                      <div class="checkbox row" ng-repeat="fld in fields | filter:searchText" >
-                        <label for="{{fld.apiName}}" class="labelFull"> 
-                            <input type="checkbox" name="chkFields" id="{{fld.apiName}}" ng-model="fld.isSelected" ng-change="updateSOQL()" /> 
-                            <span ng-if="isAPIName == false"> {{fld.fieldLabel}} </span>
-                            <span ng-if="isAPIName == true"> {{fld.apiName}} </span>  
-                         </label>
-                       </div> 
-                    </div> 
-                </div>
-                    
-                     <!-- Search input-->
-                <div class="form-group">
-                  <div class="col-md-4">
-                        <input ng-model="searchObj" id="txtSearchObj" name="txtSearchObj" type="search" placeholder="Search Objects" class="form-control input-md" /> 
-                      </div>
-                  <div class="col-md-1"> <input type="checkbox" name="checkAll" id="checkAll" value="{{isAll}}" ng-model="isAll" ng-change="checkUnCheckAll()"/> </div>
-                  <div class="col-md-4">
-                    <input ng-model="searchText" id="txtSearchField" name="txtSearchField" type="search" placeholder="Search Fields" class="form-control input-md" /> 
-                  </div>
-                  <div class="col-md-3">
-                    <label class="checkbox-inline" for="ShowAPI-0">
-                      <input type="checkbox" name="ShowAPI" id="ShowAPI-0" value="API" ng-model="isAPIName" />
-                      Show API Name 
-                    </label>
-                  </div>
-                </div> 
-        </div> 
-        
-            <div class="col-md-6">  
-                <div class="form-horizontal">   
-                    <!-- Textarea -->
-                    <div class="form-group">
-                      <label class="col-md-1 control-label" for="txtSOQL">SOQL</label>
-                      <div class="col-md-11">                     
-                        <textarea ng-model="SOQL" class="form-control" style="height:200px;" id="txtSOQL" name="txtSOQL">
-                          
-                          </textarea>
-                      </div>
-                    </div>
+		
+			<div class="col-md-4 form-horizontal">  
+				<!-- Select Basic -->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="optObjects">Objects</label>
+				  <div class="col-md-8">
+					<select multiple="multiple" ng-change="getAllFields()" id="optObjects" name="optObjects" class="form-control" ng-model="selectedObject">
+					  <option  ng-repeat="obj in objects | filter:searchObj"  value="{{obj.apiName}}">{{obj.fieldLabel}}</option> 
+					</select>
+				  </div>
+				</div> 
+				<div class="form-group">
+					<input ng-model="searchObj" id="txtSearchObj" name="txtSearchObj" type="search" placeholder="Search Objects" class="form-control input-md" /> 
+				</div>
+			</div>
+		
+			<div class="col-md-4 form-horizontal">    
+					<!-- Select Multiple -->
+					<div class="form-group">
+					 <label class="col-md-4 control-label" for="chkFields">Fields</label>
+						<div class="col-md-8 roundedCorner scrollV">
+						  <div class="checkbox row" ng-repeat="fld in fields | filter:searchText" >
+							<label for="{{fld.apiName}}" class="labelFull"> 
+								<input type="checkbox" name="chkFields" id="{{fld.apiName}}" ng-model="fld.isSelected" ng-change="updateSOQL()" /> 
+								<span ng-if="isAPIName == false"> {{fld.fieldLabel}} </span>
+								<span ng-if="isAPIName == true"> {{fld.apiName}} </span>  
+							 </label>
+						   </div> 
+						</div> 
+					</div>
+						
+						 <!-- Search input-->
+					<div class="form-group">  
+						<div class="col-md-4"> 
+							<label class="checkbox-inline" for="checkAll">
+								<input type="checkbox" name="checkAll" id="checkAll" value="{{isAll}}" ng-model="isAll" ng-change="checkUnCheckAll()"/> 
+								All
+							</label>
+						</div>
 
-                    <div class="form-group">
-                      <label class="col-md-1 control-label" for="txtSOQL"> </label>
-                      <div class="col-md-11">                     
-                         <button ng-click="run()" id="singlebutton" name="singlebutton" class="btn btn-danger">Run Query </button>
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+						<div class="col-md-4">
+							<input ng-model="searchText" id="txtSearchField" name="txtSearchField" type="search" placeholder="Search Fields" class="form-control input-md" /> 
+						</div>
+
+						<div class="col-md-4">
+							<label class="checkbox-inline" for="ShowAPI-0">
+								<input type="checkbox" name="ShowAPI" id="ShowAPI-0" value="API" ng-model="isAPIName" />
+								Show API Name 
+							</label>
+						</div>
+					</div> 
+			</div> 
+        
+			<div class="col-md-4">  
+				<div class="form-horizontal">   
+					<!-- Textarea -->
+					<div class="form-group">
+					  <label class="col-md-1 control-label" for="txtSOQL">SOQL</label>
+					  <div class="col-md-11">                     
+						<textarea ng-model="SOQL" class="form-control" style="height:200px;" id="txtSOQL" name="txtSOQL">
+						  
+						  </textarea>
+					  </div>
+					</div>
+
+					<div class="form-group">
+					  <label class="col-md-1 control-label" for="txtSOQL"> </label>
+					  <div class="col-md-11">                     
+						 <button ng-click="run()" id="singlebutton" name="singlebutton" class="btn btn-danger">Run Query </button>
+					  </div>
+					</div>
+				</div>
+			</div> 
+     </div>
         
         <div class="form-group col-md-12" ng-show='columnLabel.length > 0'> 
           <div class="col-md-8"></div>

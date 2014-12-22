@@ -170,7 +170,7 @@
                     <table class="table table-striped table-bordered table-hover table-condensed">
                         <th>  Query Name  </th>
                         <th>  Actions  </th>
-                        <tr ng-repeat="row in savedQuery track by $index" >
+                        <tr ng-repeat="row in savedQuery " >
                             <td> {{row.name}} </td>
                             <td> 
                                 
@@ -275,14 +275,17 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.SQBAPIVer = storageService.get('SQBAPIVer') ;
     $scope.SQBInstURL = storageService.get('SQBInstURL') ;
     $scope.loggedInUserId = storageService.get('SQUserLoggedIn') ;
-    
-     console.log($scope.loggedInUserId);
      
     $scope.savedQuery = storageService.get($scope.loggedInUserId+'savedQuery');
+    
+    console.log($scope.loggedInUserId);
     console.log(storageService.get($scope.loggedInUserId+'savedQuery')); 
+    console.log($scope.savedQuery);
+     
     if(!$scope.savedQuery)
     {
         $scope.savedQuery = new Array();
+        console.log('I am not set');
     }
      
      $scope.clearAllSavedQuery = function (){

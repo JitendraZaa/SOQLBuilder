@@ -276,7 +276,7 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.SQBInstURL = storageService.get('SQBInstURL') ;
     $scope.loggedInUserId = storageService.get('SQUserLoggedIn') ;
      
-    $scope.savedQueryList = storageService.get($scope.loggedInUserId+'savedQuery');
+    $scope.savedQueryList = JSON.parse(storageService.get($scope.loggedInUserId+'savedQuery'));
     
     console.log($scope.loggedInUserId);
     console.log(storageService.get($scope.loggedInUserId+'savedQuery')); 
@@ -353,7 +353,7 @@ myApp.factory('storageService', function ($rootScope) {
            $scope.savedQueryList.splice( $scope.savedQueryList.indexOf(indexToDel), 1 );
        }
        
-       storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQueryList);
+       storageService.set($scope.loggedInUserId+'savedQuery',JSON.stringify($scope.savedQueryList));
        angular.element("#savedQuery").modal('hide');
    }
      
@@ -481,7 +481,7 @@ myApp.factory('storageService', function ($rootScope) {
              
            $scope.savedQueryList.push(storedQuery);
            
-           storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQueryList);
+           storageService.set($scope.loggedInUserId+'savedQuery',JSON.stringify($scope.savedQueryList));
            console.log(storageService.get($scope.loggedInUserId+'savedQuery'));
        }
    }

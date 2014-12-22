@@ -170,7 +170,7 @@
                     <table class="table table-striped table-bordered table-hover table-condensed">
                         <th>  Query Name  </th>
                         <th>  Actions  </th>
-                        <tr ng-repeat="row in savedQuery" >
+                        <tr ng-repeat="row in savedQuery track by $index" >
                             <td> {{row.name}} </td>
                             <td> 
                                 

@@ -67,17 +67,17 @@
 						
 						 <!-- Search input-->
 					<div class="form-group">  
-						<div class="col-md-6">
-							<input ng-model="searchText" id="txtSearchField" name="txtSearchField" type="search" placeholder="Search Fields" class="form-control input-md" /> 
-						</div>
-						
 						<div class="col-md-2"> 
 							<label class="checkbox-inline" for="checkAll">
 								<input type="checkbox" name="checkAll" id="checkAll" value="{{isAll}}" ng-model="isAll" ng-change="checkUnCheckAll()"/> 
 								All
 							</label>
 						</div>
- 
+						
+						<div class="col-md-6">
+							<input ng-model="searchText" id="txtSearchField" name="txtSearchField" type="search" placeholder="Search Fields" class="form-control input-md" /> 
+						</div>
+						  
 						<div class="col-md-4">
 							<label class="checkbox-inline" for="ShowAPI-0">
 								<input type="checkbox" name="ShowAPI" id="ShowAPI-0" value="API" ng-model="isAPIName" />
@@ -315,10 +315,7 @@ myApp.factory('storageService', function ($rootScope) {
      $scope.getAllObjects = function(){
          $scope.apiCount = $scope.apiCount + 1; 
          $scope.url = $scope.SQBInstURL + '/services/data/'+ $scope.SQBAPIVer + '/sobjects' ; 
-         
-         console.log('1'+$scope.url);
-         console.log('2'+proxyURL);
-         
+           
          $http({method: 'GET', url: proxyURL, headers: {'X-Authorization': 'OAuth '+$scope.SQBAccToken, 
                                                           'SFDCActualURL' : $scope.url  
                                                          } }).

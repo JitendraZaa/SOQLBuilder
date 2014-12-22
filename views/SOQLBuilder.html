@@ -266,6 +266,7 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.orderByColumn = '';
     $scope.reverse = true;
     $scope.apiCount = 0;
+    $scope.savedQuery = [];
 
     $scope.savedQuery = storageService.get(storageService.get('SQUserLoggedIn')+'savedQuery');
                 
@@ -327,7 +328,7 @@ myApp.factory('storageService', function ($rootScope) {
                 break;
             }
         }
-       if (index > -1) {
+       if (indextoRemove > -1) {
             $scope.savedQuery.splice(indextoRemove, 1);
         }
        storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',$scope.savedQuery);

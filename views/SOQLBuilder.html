@@ -268,12 +268,13 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.reverse = true;
     $scope.apiCount = 0;
     $scope.savedQuery = [];
-
-    $scope.savedQuery = storageService.get(storageService.get('SQUserLoggedIn')+'savedQuery');
+     console.log($scope.loggedInUserId);
+    $scope.savedQuery = storageService.get($scope.loggedInUserId+'savedQuery');
                 
     $scope.SQBAccToken = storageService.get('SQBAccToken') ;
     $scope.SQBAPIVer = storageService.get('SQBAPIVer') ;
     $scope.SQBInstURL = storageService.get('SQBInstURL') ;
+    $scope.loggedInUserId = storageService.get('SQUserLoggedIn') ;
   
     if(!$scope.savedQuery)
     {
@@ -281,9 +282,9 @@ myApp.factory('storageService', function ($rootScope) {
     }
      
      $scope.clearAllSavedQuery = function (){
-        if(prompt('Are you sure you want to delete all saved quries ?'))
+        if(confirm('Are you sure you want to delete all saved quries ?'))
         {
-            storageService.remove(storageService.get('SQUserLoggedIn')+'savedQuery');
+            storageService.remove($scope.loggedInUserId+'savedQuery');
             $scope.savedQuery = new Array();
         }
      }
@@ -345,7 +346,7 @@ myApp.factory('storageService', function ($rootScope) {
            $scope.savedQuery.splice( $scope.savedQuery.indexOf(indexToDel), 1 );
        }
        
-       storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',$scope.savedQuery);
+       storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQuery);
        angular.element("#savedQuery").modal('hide');
    }
      
@@ -473,7 +474,7 @@ myApp.factory('storageService', function ($rootScope) {
              
            $scope.savedQuery.push(storedQuery);
            
-           storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',$scope.savedQuery);
+           storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQuery);
        }
    }
    

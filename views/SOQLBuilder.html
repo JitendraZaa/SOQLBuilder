@@ -183,6 +183,7 @@
                             </td> 
                         </tr>
                     </table> 
+                    <a href="" ng-click="clearAllSavedQuery()">Clear all</a>
                 </div>
             </div>  
           </div>
@@ -277,7 +278,15 @@ myApp.factory('storageService', function ($rootScope) {
     if(!$scope.savedQuery)
     {
         $scope.savedQuery = new Array();
-    } 
+    }
+     
+     $scope.clearAllSavedQuery(){
+        if(prompt('Are you sure you want to delete all saved quries ?'))
+        {
+            storageService.remove(storageService.get('SQUserLoggedIn')+'savedQuery');
+            $scope.savedQuery = new Array();
+        }
+     }
      
      $scope.sortColumn = function(txt){ 
          $scope.orderByColumn = txt;
@@ -321,9 +330,20 @@ myApp.factory('storageService', function ($rootScope) {
    
    $scope.removeQuery = function(unId){
        console.log(unId);
-        $scope.savedQuery = $scope.savedQuery.filter(function(item) {
-            return item.uniqueId !== unId;
-        }); 
+       var indexToDel = -1;
+       
+       for(var i=0; i < $scope.savedQuery.length; i++){
+            if($scope.savedQuery[i].uniqueId == unId)
+            {
+                indexToDel = i ;
+                break;
+            }
+        }
+       
+       if(indexToDel > -1)
+       {
+           $scope.savedQuery.splice( $scope.savedQuery.indexOf(indexToDel), 1 );
+       }
        
        storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',$scope.savedQuery);
        angular.element("#savedQuery").modal('hide');

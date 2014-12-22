@@ -320,17 +320,11 @@ myApp.factory('storageService', function ($rootScope) {
    }
    
    $scope.removeQuery = function(unId){
-        var indextoRemove = -1;
-        for(var i=0; i < $scope.savedQuery.length; i++){
-            if($scope.savedQuery[i].uniqueId == unId)
-            { 
-                indextoRemove = i;
-                break;
-            }
-        }
-       if (indextoRemove > -1) {
-            $scope.savedQuery.splice(indextoRemove, 1);
-        }
+       console.log(unId);
+        $scope.savedQuery = $scope.savedQuery.filter(function(item) {
+            return item.uniqueId !== unId;
+        }); 
+       
        storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',$scope.savedQuery);
        angular.element("#savedQuery").modal('hide');
    }
@@ -459,7 +453,7 @@ myApp.factory('storageService', function ($rootScope) {
              
            $scope.savedQuery.push(storedQuery);
            
-           storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',savedQuery);
+           storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',$scope.savedQuery);
        }
    }
    

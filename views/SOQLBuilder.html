@@ -268,14 +268,18 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.reverse = true;
     $scope.apiCount = 0;
     $scope.savedQuery = [];
-     console.log($scope.loggedInUserId);
-    $scope.savedQuery = storageService.get($scope.loggedInUserId+'savedQuery');
+     
+    
                 
     $scope.SQBAccToken = storageService.get('SQBAccToken') ;
     $scope.SQBAPIVer = storageService.get('SQBAPIVer') ;
     $scope.SQBInstURL = storageService.get('SQBInstURL') ;
     $scope.loggedInUserId = storageService.get('SQUserLoggedIn') ;
-  
+    
+     console.log($scope.loggedInUserId);
+     
+    $scope.savedQuery = storageService.get($scope.loggedInUserId+'savedQuery');
+     
     if(!$scope.savedQuery)
     {
         $scope.savedQuery = new Array();

@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/client'));
 
 app.use(bodyParser.json());  
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3002);
 
 
 app.all('/proxy', function(req, res) { 

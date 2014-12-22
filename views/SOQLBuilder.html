@@ -170,7 +170,7 @@
                     <table class="table table-striped table-bordered table-hover table-condensed">
                         <th>  Query Name  </th>
                         <th>  Actions  </th>
-                        <tr ng-repeat="row in savedQuery " >
+                        <tr ng-repeat="row in savedQueryList track by $index" >
                             <td> {{row.name}} </td>
                             <td> 
                                 
@@ -267,7 +267,7 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.orderByColumn = '';
     $scope.reverse = true;
     $scope.apiCount = 0;
-    $scope.savedQuery = [];
+    $scope.savedQueryList = [];
      
     
                 
@@ -276,15 +276,15 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.SQBInstURL = storageService.get('SQBInstURL') ;
     $scope.loggedInUserId = storageService.get('SQUserLoggedIn') ;
      
-    $scope.savedQuery = storageService.get($scope.loggedInUserId+'savedQuery');
+    $scope.savedQueryList = storageService.get($scope.loggedInUserId+'savedQuery');
     
     console.log($scope.loggedInUserId);
     console.log(storageService.get($scope.loggedInUserId+'savedQuery')); 
-    console.log($scope.savedQuery);
+    console.log($scope.savedQueryList);
      
-    if(!$scope.savedQuery)
+    if(!$scope.savedQueryList)
     {
-        $scope.savedQuery = new Array();
+        $scope.savedQueryList = new Array();
         console.log('I am not set');
     }
      
@@ -292,7 +292,7 @@ myApp.factory('storageService', function ($rootScope) {
         if(confirm('Are you sure you want to delete all saved quries ?'))
         {
             storageService.remove($scope.loggedInUserId+'savedQuery');
-            $scope.savedQuery = new Array();
+            $scope.savedQueryList = new Array();
         }
      }
      
@@ -326,10 +326,10 @@ myApp.factory('storageService', function ($rootScope) {
      } 
      
    $scope.useQuery = function(unId){
-        for(var i=0; i < $scope.savedQuery.length; i++){
-            if($scope.savedQuery[i].uniqueId == unId)
+        for(var i=0; i < $scope.savedQueryList.length; i++){
+            if($scope.savedQueryList[i].uniqueId == unId)
             {
-                $scope.SOQL = $scope.savedQuery[i].query ;
+                $scope.SOQL = $scope.savedQueryList[i].query ;
                 break;
             }
         }
@@ -340,8 +340,8 @@ myApp.factory('storageService', function ($rootScope) {
        console.log(unId);
        var indexToDel = -1;
        
-       for(var i=0; i < $scope.savedQuery.length; i++){
-            if($scope.savedQuery[i].uniqueId == unId)
+       for(var i=0; i < $scope.savedQueryList.length; i++){
+            if($scope.savedQueryList[i].uniqueId == unId)
             {
                 indexToDel = i ;
                 break;
@@ -350,10 +350,10 @@ myApp.factory('storageService', function ($rootScope) {
        
        if(indexToDel > -1)
        {
-           $scope.savedQuery.splice( $scope.savedQuery.indexOf(indexToDel), 1 );
+           $scope.savedQueryList.splice( $scope.savedQueryList.indexOf(indexToDel), 1 );
        }
        
-       storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQuery);
+       storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQueryList);
        angular.element("#savedQuery").modal('hide');
    }
      
@@ -479,9 +479,9 @@ myApp.factory('storageService', function ($rootScope) {
            storedQuery.query = $scope.SOQL ; 
            storedQuery.uniqueId = new Date().getTime();
              
-           $scope.savedQuery.push(storedQuery);
+           $scope.savedQueryList.push(storedQuery);
            
-           storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQuery);
+           storageService.set($scope.loggedInUserId+'savedQuery',$scope.savedQueryList);
            console.log(storageService.get($scope.loggedInUserId+'savedQuery'));
        }
    }

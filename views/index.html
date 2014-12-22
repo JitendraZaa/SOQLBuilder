@@ -26,7 +26,7 @@
         </div>
       
     <script type="text/javascript" src="js/angular.min.js"></script> 
-      <script type="text/javascript" src="js/OAuth.js"></script>  
+     <script type="text/javascript" src="js/OAuth.js"></script>  
       
      <script> 
      if (window.location.protocol != "https:" && window.location.hostname != 'localhost')
@@ -72,14 +72,16 @@
                     popupCenter(url, 'login', 700, 600);
                 }
                 
-                $scope.setCokkies = function(response){
-                    console.debug('Angular Called from Legacy Code');
+                $scope.setCokkies = function(response){ 
                     
                     storageService.set('SQBAccToken',response.access_token);
                     storageService.set('SQBAPIVer',apiVersion);
                     storageService.set('SQBInstURL',response.instance_url);
                     storageService.set('SQBidURL',response.id);
-                      
+                    
+                    var strngBrks = response.id.split('/');
+                    
+                    storageService.set('SQUserLoggedIn',strngBrks[strngBrks.length - 1]); 
                 } 
                     
          }]);

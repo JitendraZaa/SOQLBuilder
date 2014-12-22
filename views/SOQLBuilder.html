@@ -102,13 +102,13 @@
 					<div class="form-group">
 					  <label class="col-md-1 control-label" > </label>
 					  <div class="col-md-11">                     
-						 <button ng-click="run()" id="singlebutton" name="singlebutton" class="btn btn-danger">Run Query </button>
-                          <a href="#" ng-click="saveQuery()" class="btn btn-success"> Save
+						 <button ng-click="run()" id="singlebutton" name="singlebutton" class="btn btn-default">Run Query </button>
+                          <a href="#" ng-click="saveQuery()" class="btn btn-default"> Save
                               <span class="glyphicon glyphicon-floppy-save"></span>
                           </a>
                           
-                           <a href="#" ng-click="showSavedModal()" class="btn btn-info"> Stored Query
-                               <span class="glyphicon glyphicon-floppy-saved"></span>
+                           <a href="#" ng-click="showSavedModal()" class="btn btn-default"> Stored Query
+                               <span class="glyphicon glyphicon-hdd"></span>
                           </a>
                           
 					  </div>
@@ -172,9 +172,14 @@
                         <th>  Actions  </th>
                         <tr ng-repeat="row in savedQuery" >
                             <td> row.name </td>
-                            <td>
-                                <a href="" ng-click="useQuery(row.uniqueId)"> Use </a> 
-                                <a href="" ng-click="removeQuery(row.uniqueId)"> remove </a> 
+                            <td> 
+                                
+                                <a href="#" ng-click="useQuery(row.uniqueId)" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-hand-left"></span></a>
+                                
+                                <a href="#" ng-click="removeQuery(row.uniqueId)" class="btn btn-default"> 
+                                    <span class="glyphicon glyphicon-trash"></span></a>
+                                 
                             </td> 
                         </tr>
                     </table> 
@@ -262,8 +267,8 @@ myApp.factory('storageService', function ($rootScope) {
     $scope.reverse = true;
     $scope.apiCount = 0;
 
-    $scope.savedQuery = storageService.get('savedQuery');
-
+    $scope.savedQuery = storageService.get(storageService.get('SQUserLoggedIn')+'savedQuery');
+                
     $scope.SQBAccToken = storageService.get('SQBAccToken') ;
     $scope.SQBAPIVer = storageService.get('SQBAPIVer') ;
     $scope.SQBInstURL = storageService.get('SQBInstURL') ;
@@ -310,6 +315,7 @@ myApp.factory('storageService', function ($rootScope) {
                 break;
             }
         }
+       angular.element("#savedQuery").modal('hide');
    }
    
    $scope.removeQuery = function(unId){
@@ -324,7 +330,8 @@ myApp.factory('storageService', function ($rootScope) {
        if (index > -1) {
             $scope.savedQuery.splice(indextoRemove, 1);
         }
-       storageService.set('savedQuery',$scope.savedQuery);
+       storageService.set(storageService.get('SQUserLoggedIn')+'savedQuery',$scope.savedQuery);
+       angular.element("#savedQuery").modal('hide');
    }
      
    $scope.groupToPages = function () {

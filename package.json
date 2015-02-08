@@ -1,29 +1,33 @@
 {
-  "name": "SOQLBuilder",
-  "version": "1.0.0",
-  "description": "Salesforce SOQL Builder",
-  "main": "Web.js",
-  "dependencies": {
-    "http": "~0.0.0",
-    "request": "~2.36.0",
-    "express": "~4.4.5",
-    "logfmt": "~1.1.2",
-    "body-parser": "~1.6.2",
-    "ejs": "^1.0.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node Web.js"
-  },
-  "engines": {
-	    "node": "0.10.x"
-	  },
-  "keywords": [
-    "Salesforce",
-    "Tooling",
-    "API"
-  ],
-  "author": "Dan Lively",
-  "license": "MIT"
+    "name": "SOQLBuilder",
+    "version": "1.0.0",
+    "description": "Salesforce SOQL Builder",
+    "main": "Web.js",
+    "dependencies": {
+        "http": "~0.0.0",
+        "request": "~2.36.0",
+        "express": "~4.4.5",
+        "logfmt": "~1.1.2",
+        "body-parser": "~1.6.2",
+        "ejs": "^1.0.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://ilovenagpur@bitbucket.org/ilovenagpur/dreamforce14.git"
+    },
+    "engines": {
+        "node": "0.10.x"
+    },
+    "keywords": [
+        "Salesforce",
+        "Tooling",
+        "API"
+    ],
+    "author": "Jitendra Zaa",
+    "license": "MIT"
 }

@@ -4,7 +4,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     app = express();
 
-//var logFmt = require("logfmt");
+var logFmt = require("logfmt");
 
 app.use(express.static(__dirname + '/client'));
 app.set('view engine', 'ejs');

@@ -25,3 +25,30 @@ This Node.js application is used for building SOQL with following features :
 Blog Article - http://www.shivasoft.in/blog/salesforce/creating-salesforce-query-builder-in-node-js-and-angularjs-using-salesforce-rest-api-and-oauth2/
 
 [![Youtube Vide](http://img.youtube.com/vi/Y_-MGYDWNuc/0.jpg)](http://www.youtube.com/watch?v=Y_-MGYDWNuc)
+
+##Running locally
+
+Add connected app consumer key and callback url to .env
+
+```
+clientId=
+redirectURL=
+```
+
+Then run foreman start to run application locally
+
+##Running on Heroku
+
+Add connected app consumer key and callback url to heroku config vars
+
+```
+heroku config:set clientId=
+```
+```
+heroku config:set redirectURL=
+```
+
+
+
+
+

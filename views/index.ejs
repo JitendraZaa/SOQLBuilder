@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!-- 
-@Author : Jitendra Zaa
-@Blog : http://shivasoft.in 
- -->
 <html lang="en">
   <head>
     <title> Salesforce Query Builder </title>
@@ -12,7 +8,7 @@
   <body class="container" style="padding-top:50px;">
       <div ng-app="app1" >
             <div class="jumbotron" ng-controller="ItemCtrl">
-              <h1> Salesforce Query Builder </h1> <h4>  <a href="http://shivasoft.in/blog">By Jitendra Zaa</a> </h4>
+              <h1> Salesforce Query Builder </h1> <h4>  </h4>
               <p>
                   Node.js and AngularJs based Query Builder for Salesforce.
             </p>
@@ -23,16 +19,22 @@
                   <a ng-click="prod()" id="prodBtn" role="button" style="margin-right:40px" class="btn btn-primary btn-lg">Production</a>
                   <a  ng-click="sand()" id="sandBtn" role="button" class="btn btn-primary btn-lg">Sandbox</a></p>
             </div>
+          <div>
+              adapted from <a href="http://shivasoft.in/blog">By Jitendra Zaa</a>
+          </div>
         </div>
       
     <script type="text/javascript" src="js/angular.min.js"></script> 
       <script type="text/javascript" src="js/OAuth.js"></script>  
       
-     <script> 
+     <script>
      if (window.location.protocol != "https:" && window.location.hostname != 'localhost')
     	    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
         
-        var myApp = angular.module('app1',[ ]); 
+        var myApp = angular.module('app1',[ ]);
+
+     var clientId = '<%= clientId %>';
+     var redirectURI = '<%= callbackUrl %>';
         
         //As Cookies are inconsistent, Use LocalSTorage of HTML 5
         myApp.factory('storageService', function ($rootScope) {

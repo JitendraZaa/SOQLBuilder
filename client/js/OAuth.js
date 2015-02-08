@@ -1,15 +1,6 @@
 var apiVersion = 'v30.0',
 	proxyURL = '/proxy';
 
-/*
-//Local host 
-var clientId = '3MVG9iTxZANhwHQuSJa6AuCgpr9Lz.vcz27mlkOKAvxUfaeTVplSWC7K4W.lV9qfNcI8MB4B9xvoIWj3xRg7h', 
-    redirectURI = "http://localhost:3002/oauthcallback.html";
-*/  
-
-var clientId = '3MVG9iTxZANhwHQuSJa6AuCgpr_bw4mpBDSy1bqqy29SovPrXH_BEKw8G4MG1CoKpaxYZg8biQzJyx8_MLkHp', 
-	redirectURI = "https://soqlbuilder.herokuapp.com/oauthcallback.html" ;
-	
 function popupCenter(url, title, w, h) { 
     var parentLeft = window.screenLeft ? window.screenLeft : window.screenX;
     var parentTop = window.screenTop ? window.screenTop : window.screenY;

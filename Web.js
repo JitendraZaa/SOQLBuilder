@@ -4,14 +4,14 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     app = express();
 
-var logFmt = require("logfmt");
+//var logFmt = require("logfmt");
 
-app.use(express.static(__dirname + '/client')); 
+app.use(express.static(__dirname + '/client'));
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());  
 
 app.set('port', process.env.PORT || 3002);
-
 
 app.all('/proxy', function(req, res) { 
     
@@ -21,12 +21,17 @@ app.all('/proxy', function(req, res) {
      
     
 });
+
+var sfConfigs = {
+    clientId: process.env.clientId,
+    callbackUrl: process.env.redirectURL
+};
  
 app.get('/' , function(req,res) {
-    res.sendfile('views/index.html');
+    res.render('index.ejs', sfConfigs);
 } ); 
 app.get('/index*' , function(req,res) {
-    res.sendfile('views/index.html');
+    res.render('index.ejs', sfConfigs);
 } );  
  
  app.get('/oauthcallback*' , function(req,res) {

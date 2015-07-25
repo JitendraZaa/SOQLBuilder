@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+@Author : Jitendra Zaa
+@Blog : http://shivasoft.in
+-->
+<html lang="en">
+  <head>
+    <title> Salesforce Query Builder </title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="icon"  type="image/icon"  href="SOQL.ico" />
+  </head>
+  <body class="container" style="padding-top:50px;">
+      <div ng-app="app1" >
+            <div class="jumbotron" ng-controller="ItemCtrl">
+              <h1> Salesforce Query Builder </h1> <h4> <a href="http://shivasoft.in/blog">By Jitendra Zaa</a> </h4>
+              <p>
+                  Node.js and AngularJs based Query Builder for Salesforce.
+            </p>
+            <p>
+                  To start, please select your Salesforce Instance
+              </p>
+              <p>
+                  <a ng-click="prod()" id="prodBtn" role="button" style="margin-right:40px" class="btn btn-primary btn-lg">Production</a>
+                  <a  ng-click="sand()" id="sandBtn" role="button" class="btn btn-primary btn-lg">Sandbox</a></p>
+            </div>
+        </div>
+
+    <script type="text/javascript" src="js/angular.min.js"></script>
+      <script type="text/javascript" src="js/OAuth.js"></script>
+
+     <script>
+     if (window.location.protocol != "https:" && window.location.hostname != 'localhost')
+    	    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+
+        var myApp = angular.module('app1',[ ]);
+
+     var clientId = '<%= clientId %>';
+     var redirectURI = '<%= callbackUrl %>';
+
+        //As Cookies are inconsistent, Use LocalSTorage of HTML 5
+        myApp.factory('storageService', function ($rootScope) {
+            return {
+                get: function (key) {
+                   return localStorage.getItem(key);
+                },
+                set: function (key, data) {
+                   localStorage.setItem(key, data);
+                },
+                remove: function (key) {
+                    localStorage.removeItem(key);
+                },
+                clearAll : function () {
+                    localStorage.clear();
+                }
+            };
+        });
+         myApp.controller('ItemCtrl', ['$scope' ,'storageService', function($scope,  storageService) {
+
+                $scope.prod = function(){
+                    $scope.login("https://login.salesforce.com/");
+                }
+
+                $scope.sand = function(){
+                     $scope.login("https://test.salesforce.com/");
+                }
+
+                $scope.login = function(loginUrl) {
+
+
+                    var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
+                        '&client_id=' + encodeURIComponent(clientId) +
+                        '&redirect_uri=' + encodeURIComponent(redirectURI);
+
+                    console.debug(url);
+                    popupCenter(url, 'login', 700, 600);
+                }
+
+                $scope.setCokkies = function(response){
+                    console.debug('Angular Called from Legacy Code');
+
+                    storageService.set('SQBAccToken',response.access_token);
+                    storageService.set('SQBAPIVer',apiVersion);
+                    storageService.set('SQBInstURL',response.instance_url);
+                    storageService.set('SQBidURL',response.id);
+
+                }
+
+         }]);
+
+      </script>
+  </body> 
+</html>

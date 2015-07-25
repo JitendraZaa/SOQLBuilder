@@ -1,5 +1,0 @@
-@IF EXIST "%~dp0\node.exe" (
-  "%~dp0\node.exe"  "%~dp0\..\logfmt\bin\logfmt" %*
-) ELSE (
-  node  "%~dp0\..\logfmt\bin\logfmt" %*
-)

@@ -10,11 +10,13 @@
         "logfmt": "~1.1.2",
         "body-parser": "~1.6.2",
         "ejs": "^1.0.0"
+    "devDependencies": {
+        "foreman": "^2.0.0"
     },
     "devDependencies": {},
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "start": "node Web.js"
     },
     "repository": {
         "type": "git",

@@ -28,6 +28,10 @@ Blog Article - http://www.shivasoft.in/blog/salesforce/creating-salesforce-query
 
 ##Running locally
 
+```
+npm install
+```
+
 Add connected app consumer key and callback url to .env
 
 ```
@@ -35,7 +39,7 @@ clientId=
 redirectURL=
 ```
 
-Then run foreman start to run application locally
+Then run `nf start` to run application locally
 
 ##Running on Heroku
 
